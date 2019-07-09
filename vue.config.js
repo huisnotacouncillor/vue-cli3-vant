@@ -1,7 +1,20 @@
-module.exports = {
-  css: {
-    sourceMap: true
-  },
+const autoprefixer = require('autoprefixer');
+const pxtoviewport = require('postcss-px-to-viewport');
 
-  assetsDir: 'static'
+module.exports = {
+    outputDir: 'docs',
+    publicPath: process.env.NODE_ENV === 'production' ? '/vant-test' : '/',
+    css: {
+        loaderOptions: {
+            postcss: {
+                plugins: [
+                    autoprefixer(),
+                    pxtoviewport({
+                        rootValue: 375,
+                        selectorBlackList: ['van-circle__layer']
+                    })
+                ]
+            }
+        }
+    }
 }
